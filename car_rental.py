@@ -22,9 +22,13 @@ class Car:
         else:
             print("This car was not rented")
 
+    # ✅ Bill method added inside first class
+    def calculate_bill(self, days):
+        return self.price_per_day * days
+
     def display_info(self):
         if self.is_available == True:
-            print(f"{self.name} is available")
+            print(f"{self.name} ({self.number}) - ₹{self.price_per_day}/day is available")
 
 
 class RentalSystem:
@@ -37,7 +41,7 @@ class RentalSystem:
     def show_available_cars(self):
         for car in self.cars:
             if car.is_available == True:
-                print(f"{car.name} ({car.number}) is available")
+                print(f"{car.name} ({car.number}) - ₹{car.price_per_day}/day is available")
 
     def rent_car(self, number):
         for car in self.cars:
@@ -45,6 +49,12 @@ class RentalSystem:
                 if car.is_available == True:
                     car.is_available = False
                     print("Car rented successfully")
+
+                    # ✅ Bill calculation using Car class method
+                    days = int(input("Enter number of rental days: "))
+                    total = car.calculate_bill(days)
+                    print(f"Total Bill: ₹{total}")
+
                 else:
                     print("Car is already rented")
                 return
@@ -81,8 +91,6 @@ system.rent_car(number)
 
 number = input("\nEnter car number to return: ")
 system.return_car(number)
-
-
        
 
 
